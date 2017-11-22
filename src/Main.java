@@ -4,7 +4,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-public class Snake {
+public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -26,11 +26,15 @@ public class Snake {
 		frame.setBounds( xp , yp , frameWidth  , frameHeight );
 		frame.setBackground(Color.gray);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GamePlay gP = new GamePlay( frameWidth, frameHeight );
+		frame.add( gP );
 		frame.setVisible(true);
 		
+		
 	
-	
-	
+		
+		
+		
 	}
 
 }
