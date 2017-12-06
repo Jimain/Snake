@@ -2,6 +2,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,12 +14,14 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class GamePlay extends JPanel implements ActionListener {
+public class GamePlay extends JPanel implements ActionListener, KeyListener, MouseListener {
 	
 	int fW;
 	int fH;
 	
 	private Timer timer;
+	
+	public Apple apple;
 	
 	GameState gS = GameState.START ;
 	
@@ -24,8 +30,14 @@ public class GamePlay extends JPanel implements ActionListener {
 		fW = frameWidth;
 		fH = frameHeight;
 		
+		apple = new Apple(frameWidth, frameHeight);
 		timer = new Timer( 100, this );
 		timer.start();
+		
+		this.addKeyListener(this);
+		this.addMouseListener(this);
+		this.setFocusable(true);
+		this.setFocusTraversalKeysEnabled(false);
 		
 	}
 	
@@ -42,6 +54,7 @@ public class GamePlay extends JPanel implements ActionListener {
 		case PLAY :
 			
 			showPlay(g);
+			apple.setApple(g);
 			
 			break;
 			
@@ -113,9 +126,58 @@ public class GamePlay extends JPanel implements ActionListener {
 		if(e.getSource( ) == timer ) {
 			repaint();
 		}
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+
 		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		
+		if( e.getKeyCode() == 10 || e.getKeyCode() == 32) {
+			gS = GameState.PLAY;
+		}
 	
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+
 		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if( gS == GameState.START ) {
+			gS = GameState.PLAY;
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
 		
 	}
 	
