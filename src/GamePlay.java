@@ -20,10 +20,13 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 	int fH;
 	
 	private Timer timer;
-	
 	public Apple apple;
+	public Snake snake;
+	
+	Boolean hitSnake = false;
 	
 	GameState gS = GameState.START ;
+	SnakeDirection sD = SnakeDirection.UP;
 	
 	public GamePlay( int frameWidth , int frameHeight ) {
 		
@@ -31,6 +34,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 		fH = frameHeight;
 		
 		apple = new Apple(frameWidth, frameHeight);
+		snake = new Snake(fW, fH);
 		timer = new Timer( 100, this );
 		timer.start();
 		
@@ -43,6 +47,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 	
 	public void paint ( Graphics g ) {
 		
+		System.out.println(sD);
 		switch ( gS ) {
 		
 		case START :
@@ -54,7 +59,8 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 		case PLAY :
 			
 			showPlay(g);
-			apple.setApple(g);
+			snake.setSnake(g, sD);
+			apple.setApple(g, hitSnake);
 			
 			break;
 			
@@ -141,6 +147,32 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 		if( e.getKeyCode() == 10 || e.getKeyCode() == 32) {
 			gS = GameState.PLAY;
 		}
+		switch (e.getKeyCode( )){
+			
+			case KeyEvent.VK_RIGHT:
+			// Move right
+			sD = SnakeDirection.RIGHT;
+				break;
+			
+			case KeyEvent.VK_LEFT:
+			//Move Left
+			sD = SnakeDirection.LEFT;
+				break;
+				
+			case KeyEvent.VK_DOWN:
+			//Move Down
+			sD = SnakeDirection.DOWN;
+				break;
+				
+			case KeyEvent.VK_UP:
+			//Move Up
+			sD = SnakeDirection.UP;
+				break;
+				
+
+		}
+	
+		
 	
 	}
 

@@ -14,6 +14,8 @@ public class Apple {
 		
 		frameWidth = fW;
 		frameHeight = fH;
+		
+		p = getNewLocation(); 
 			
 	}
 	private Point getNewLocation() {
@@ -27,10 +29,11 @@ public class Apple {
 		return p;
 
 	}
-	public void setApple(Graphics g) {
-	
-		p = getNewLocation();
+	public void setApple(Graphics g , Boolean hitSnake ) {
 		
+		if ( hitSnake ) {
+			p = getNewLocation();
+		}
 		g.setColor(Color.RED);
 		g.fillRect(p.x, p.y, 10, 10);
 		
