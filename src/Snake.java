@@ -13,7 +13,10 @@ public class Snake {
 		
 		frameWidth = fW;
 		frameHeight = fH;
-		p = new Point( frameWidth / 2 - 5 , frameHeight / 2 - 5 );
+		int x = (int) (Math.floor( (frameWidth / 2 - 5 ) / 10) * 10 );
+		int y = (int) (Math.floor( (frameHeight / 2 - 5 ) / 10 ) * 10);
+		p = new Point( x , y );
+		
 		
 	}
 	public void setSnake( Graphics g, SnakeDirection sD ) {

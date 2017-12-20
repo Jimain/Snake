@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +25,8 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 	public Apple apple;
 	public Snake snake;
 	
-	Boolean hitSnake = false;
+	Boolean ateApple = false;
+	int score = 0;
 	
 	GameState gS = GameState.START ;
 	SnakeDirection sD = SnakeDirection.UP;
@@ -47,7 +50,6 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 	
 	public void paint ( Graphics g ) {
 		
-		System.out.println(sD);
 		switch ( gS ) {
 		
 		case START :
@@ -59,8 +61,16 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 		case PLAY :
 			
 			showPlay(g);
+			showScore(g);
+			apple.setApple(g, ateApple);
 			snake.setSnake(g, sD);
-			apple.setApple(g, hitSnake);
+			
+			if( snake.p.x == apple.p.x && snake.p.y == apple.p.y ) {
+				ateApple = true;
+				score+=10;
+			}else {
+				ateApple = false;
+			}
 			
 			break;
 			
@@ -124,6 +134,21 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 	private void showError(  Graphics g) {
 		
 		paintBackground(g,Color.RED );
+		
+	}
+	public void showScore( Graphics g ) {
+	
+		int fontS = 300;
+		if( score >= 100 ) {
+			fontS = 200;
+		}
+		FontMetrics fM = g.getFontMetrics();
+		int tW = fM.stringWidth(Integer.toString(score));
+		g.setColor( Color.WHITE);
+		g.setFont(new Font( "TimesRoman", Font.PLAIN, fontS ));
+		g.drawString( Integer.toString(score) , fW / 2 - tW / 2 , fH / 2  );
+		
+		
 		
 	}
 

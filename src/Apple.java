@@ -7,6 +7,8 @@ public class Apple {
 	
 	int frameHeight = 0;
 	int frameWidth = 0;
+	int width = 10;
+	int height = 10;
 	Point p = new Point();
 	
 	
@@ -20,22 +22,25 @@ public class Apple {
 	}
 	private Point getNewLocation() {
 		
-		int x = new Random().nextInt(frameWidth);
-		int y = new Random().nextInt(frameHeight);
+		int x = new Random().nextInt(frameWidth - width);
+		int y = new Random().nextInt(frameHeight - height - 22);
+		
+		x = (int) (Math.floor( x / width ) * width);
+		y = (int) (Math.floor(y / height ) * height);
 
-		p.x = x;
+		p.x = x ;
 		p.y = y;
 		
 		return p;
 
 	}
-	public void setApple(Graphics g , Boolean hitSnake ) {
+	public void setApple(Graphics g , Boolean ateApple ) {
 		
-		if ( hitSnake ) {
+		if ( ateApple ) {
 			p = getNewLocation();
 		}
 		g.setColor(Color.RED);
-		g.fillRect(p.x, p.y, 10, 10);
+		g.fillRect(p.x, p.y, width, height);
 		
 	}
 
