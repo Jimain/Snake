@@ -63,14 +63,22 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 			showPlay(g);
 			showScore(g);
 			apple.setApple(g, ateApple);
-			snake.setSnake(g, sD);
+			snake.setSnake(g, sD, ateApple);
 			
-			if( snake.p.x == apple.p.x && snake.p.y == apple.p.y ) {
+			if( snake.head().x == apple.p.x && snake.head().y == apple.p.y ) {
 				ateApple = true;
 				score+=10;
 			}else {
 				ateApple = false;
 			}
+			
+			if(snake.head().x > fW || snake.head().x < 0) {
+				gS = GameState.GAMEOVER;
+			}
+			if(snake.head().y > fW || snake.head().y < 0) {
+				gS = GameState.GAMEOVER;
+			}
+			
 			
 			break;
 			
