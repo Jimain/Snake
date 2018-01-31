@@ -74,7 +74,7 @@ public class Snake {
 		Point head = head();
 		
 		for( int i = 1; i < body.size() ; i++) {
-			if( head.x == body.get(i).x ) {
+			if( head.x == body.get(i).x && head.y == body.get(i).y ) {
 				dead = true;
 			}
 		}

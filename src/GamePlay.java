@@ -31,6 +31,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 	GameState gS = GameState.START ;
 	SnakeDirection sD = SnakeDirection.UP;
 	
+	
 	public GamePlay( int frameWidth , int frameHeight ) {
 		
 		fW = frameWidth;
@@ -72,10 +73,10 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 				ateApple = false;
 			}
 			
-			if(snake.head().x > fW || snake.head().x < 0) {
+			if(snake.head().x > fW || snake.head().x < 0 || snake.head().y > fW || snake.head().y < 0 ) {
 				gS = GameState.GAMEOVER;
 			}
-			if(snake.head().y > fW || snake.head().y < 0) {
+			if ( snake.iAmDead()) {
 				gS = GameState.GAMEOVER;
 			}
 			
@@ -85,6 +86,10 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 		case GAMEOVER :
 			
 			showGameOver(g);
+			
+			showScore(g);
+			
+			snake = new Snake(fW, fH);
 			
 			break;
 			
@@ -136,6 +141,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 	private void showGameOver(  Graphics g) {
 		
 		paintBackground(g, new Color(246, 135, 255 ));
+		
 	
 	}
 	
@@ -176,9 +182,13 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener, Mou
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
-		if( e.getKeyCode() == 10 || e.getKeyCode() == 32) {
-			gS = GameState.PLAY;
+			
+			if( e.getKeyCode() == 10 || e.getKeyCode() == 32) {
+				if ( gS == GameState.GAMEOVER) {
+					score = 0;
+					snake = new Snake(fW, fH);
+				}
+				gS = GameState.PLAY;
 		}
 		switch (e.getKeyCode( )){
 			
